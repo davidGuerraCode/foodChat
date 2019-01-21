@@ -1,0 +1,16 @@
+:root {
+    --main-bg-color: #4fb99f;
+    --secondary-color: #ed553b;
+    --header-height: 65px;
+}
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.chat-container {
+    background-color: red;
+    height: calc(90vh - var(--header-height));
+}
