@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import './App.css';
+import { Route, Switch } from 'react-router-dom';
 
-import ChatHeader from '../components/ChatHeader/ChatHeader';
-import ChatMessageList from '../components/ChatMessageList/ChatMessageList';
-import ChatInput from '../components/ChatInput/ChatInput';
+import Layout from '../hoc/Layout/Layout';
+import ConversationList from './Conversations/ConversationList';
 
 class App extends Component {
     state = {
@@ -40,10 +39,12 @@ class App extends Component {
 
     render() {
         return (
-            <div className="App">
-                <ChatHeader userData={this.state.user} />
-                <ChatMessageList messages={this.state.messages} />
-                <ChatInput handleInput={this.handleInput} />
+            <div>
+                <Layout>
+                    <Switch>
+                        <Route path="/" component={ConversationList} />
+                    </Switch>
+                </Layout>
             </div>
         );
     }

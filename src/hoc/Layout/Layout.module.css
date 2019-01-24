@@ -1,5 +1,5 @@
 :root {
-    --main-bg-color: #4fb99f;
+    --main-bg-color: #ed553b;
     --secondary-color: #ed553b;
     --header-height: 65px;
 }
@@ -11,6 +11,6 @@
 }
 
 .chat-container {
-    background-color: red;
+    /* background-color: red; */
     height: calc(90vh - var(--header-height));
 }

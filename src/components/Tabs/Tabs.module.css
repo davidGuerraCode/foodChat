@@ -1,0 +1,19 @@
+.tabs-container {
+    background: #ea4321;
+    background: -moz-linear-gradient(left, #ea4321 0%, #fc5200 100%);
+    background: -webkit-linear-gradient(left, #ea4321 0%, #fc5200 100%);
+    background: linear-gradient(to right, #ea4321 0%, #fc5200 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea4321', endColorstr='#fc5200',GradientType=1 );
+    display: flex;
+    width: 100%;
+    height: 45px;
+    justify-content: center;
+    align-items: center;
+}
+
+.tab {
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: white;
+    cursor: pointer;
+}
