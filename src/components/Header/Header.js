@@ -7,8 +7,9 @@ class Header extends Component {
     }
 
     pushRoute = () => {
-        console.log('[!]', this.props);
-        // this.props.history.push('/conversations');
+        const { history } = this.props.route;
+        // go to the last route
+        history.push('/');
     };
 
     render() {

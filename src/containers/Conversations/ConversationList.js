@@ -37,7 +37,7 @@ class ConversationList extends Component {
     render() {
         const { conversations } = this.state;
         const conversation = conversations.map(item => {
-            return <Conversation key={item.id} conversation={item} />;
+            return <Conversation key={item.id} conversation={item} route={this.props} />;
         });
 
         return (

@@ -3,9 +3,10 @@ import { Route, Switch } from 'react-router-dom';
 
 import Layout from '../hoc/Layout/Layout';
 import ConversationList from './Conversations/ConversationList';
+import ChatRoom from '../containers/ChatRoom/ChatRoom';
 
 class App extends Component {
-    state = {
+    /* state = {
         user: {
             id: 1,
             username: 'David',
@@ -17,7 +18,7 @@ class App extends Component {
             { id: 2, username: 'Daniel', message: 'Respuesta hola mundo, Chat' },
             { id: 3, username: 'Hector', message: 'Algo más hola mundo, Chat' }
         ]
-    };
+    }; */
 
     handleInput = event => {
         /* const value = event.target.textContent;
@@ -42,6 +43,7 @@ class App extends Component {
             <div>
                 <Layout>
                     <Switch>
+                        <Route path="/chat-room/:id" component={ChatRoom} />
                         <Route path="/" component={ConversationList} />
                     </Switch>
                 </Layout>
