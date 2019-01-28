@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 import Aux from '../../hoc/Aux/Aux';
 import style from './ChatRoom.module.css';
@@ -10,23 +11,22 @@ class ChatRoom extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: {
-                id: 1,
-                username: 'Burger Pug',
-                avatarImg:
-                    'https://images.unsplash.com/photo-1537815749002-de6a533c64db?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=845&q=80',
-                initDate: '19/10/2019'
-            },
-            messages: ['']
+            user: []
         };
     }
 
     componentDidMount() {
-        // Get the user info and messages for the user (id) from DB
         const {
-            match: { params }
+            match: {
+                params: { id }
+            }
         } = this.props;
-        // set new state
+
+        axios.get(`http://localhost:5000/users/${id}`).then(res => {
+            console.log(`[!] Returning from Api ${JSON.stringify(res.data)}`);
+            const user = res.data;
+            this.setState({ user });
+        });
     }
 
     render() {

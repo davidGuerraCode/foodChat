@@ -1,29 +1,51 @@
 const express = require('express');
-const path = 'path';
 const bodyParse = require('body-parser');
-const db = require('./db');
+const morgan = require('morgan');
+
+const usersRoutes = require('./routes/users');
+const conversationsRoutes = require('./routes/conversation');
+const messagesRoutes = require('./routes/messages');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(bodyParse.json());
 app.use(bodyParse.urlencoded({ extended: true }));
+app.use(morgan('dev'));
 
-// Set endPoints
-app.get('/api/hello', async (req, res) => {
-    const client = await db.connect();
-
-    try {
-        let query = 'select * from users';
-        let result = await client.query(query);
-
-        await client.release();
-
-        console.log(`[!] Query result ${JSON.stringify(result.rows)}`);
-    } catch (err) {
-        console.error(`Something happend ${err}`);
+// Handle CORS
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*'); // Ajustamos los headers de la respuesta. '*' permite el acceso a todos.
+    res.header(
+        'Access-Control-Allow-Headers', // Definimos que clase de headers queremos aceptar
+        'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+    );
+    if (req.method === 'OPTIONS') {
+        res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+        return res.status(200).json({});
     }
-    // res.send({ express: 'Hello from Express' });
+    next();
+});
+
+// Routes
+app.use('/users', usersRoutes);
+app.use('/conversations', conversationsRoutes);
+app.use('/messages', messagesRoutes);
+
+// Handle errors
+app.use((req, res, next) => {
+    const error = new Error('Not Found');
+    error.status = 404;
+    next(error);
+});
+
+app.use((error, req, res, next) => {
+    res.status(error.status || 500);
+    res.json({
+        error: {
+            message: error.message
+        }
+    });
 });
 
 app.listen(PORT, () => console.log(`[+] Server running on port ${PORT}`));

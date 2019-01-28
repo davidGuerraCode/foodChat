@@ -10,11 +10,11 @@ class Conversation extends Component {
     };
 
     render() {
-        const { username, avatarImg, lastMessage, id } = this.props.conversation;
+        const { username, avatar_url, lastMessage, id } = this.props.conversation;
 
         return (
             <div className={style['info']} onClick={this.goToChatRoom}>
-                <img className={style['avatar-img']} src={avatarImg} alt="Avatar" />
+                <img className={style['avatar-img']} src={avatar_url} alt="Avatar" />
                 <div className={style['user-info-box']}>
                     <p className={style['username']}>{username}</p>
                     <p className={style['message']}>{lastMessage}</p>

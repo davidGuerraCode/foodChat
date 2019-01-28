@@ -8,7 +8,7 @@ class UserData extends Component {
     render() {
         return (
             <div className={style['user-details']}>
-                <img className={style['avatar-image']} src={this.props.userData.avatarImg} alt="User Avatar" />
+                <img className={style['avatar-image']} src={this.props.userData['avatar_url']} alt="User Avatar" />
                 <div className={style['user']}>
                     <p className={style['username']}>{this.props.userData.username}</p>
                     <p className={style['status']}>{this.props.status}</p>
