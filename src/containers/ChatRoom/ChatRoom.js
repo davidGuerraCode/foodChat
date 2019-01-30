@@ -5,7 +5,7 @@ import Aux from '../../hoc/Aux/Aux';
 // import style from './ChatRoom.module.css';
 import Header from '../../components/Header/Header';
 import UserData from '../../components/UserData/UserData';
-// import ChatMessageList from '../../components/ChatMessageList/ChatMessageList';
+import MessageList from '../../components/MessageList/MessageList';
 import InputBox from '../../components/InputBox/InputBox';
 
 class ChatRoom extends Component {
@@ -31,14 +31,25 @@ class ChatRoom extends Component {
         });
     }
 
+    handleKeydownEvent = event => {
+        const value = event.target.textContent;
+        const ENTER = 13;
+
+        if (event.keyCode === ENTER) {
+            event.preventDefault();
+            console.log('[Send message and append to the chatListBox]', value);
+            event.target.textContent = '';
+        }
+    };
+
     render() {
         return (
             <Aux>
                 <Header route={this.props}>
                     <UserData userData={this.state.user} />
                 </Header>
-                {/* <ChatMessageList /> */}
-                <InputBox />
+                {/* <MessageList /> */}
+                <InputBox handleKeydownEvent={this.handleKeydownEvent} />
             </Aux>
         );
     }

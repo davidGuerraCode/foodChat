@@ -2,6 +2,7 @@ import React from 'react';
 import style from './InputBox.module.css';
 
 const ChatInput = props => {
+    const { handleKeydownEvent } = props;
     return (
         <div className={style['chat-input']}>
             <div
@@ -10,7 +11,7 @@ const ChatInput = props => {
                 spellCheck="true"
                 placeholder="Escribe un mensaje"
                 className={style['message-box']}
-                onInput={props.handleInput}
+                onKeyUp={handleKeydownEvent}
                 data-js="chat-input"
             />
             <div className={style['media-icons']}>
