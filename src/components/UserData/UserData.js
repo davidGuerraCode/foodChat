@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import style from './UserData.module.css';
 
 class UserData extends Component {
-    componentDidMount() {
+    /* componentDidMount() {
         console.log('[!!]', this.props);
-    }
+    } */
+
     render() {
         return (
             <div className={style['user-details']}>

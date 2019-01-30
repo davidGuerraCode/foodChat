@@ -10,7 +10,7 @@ class Conversation extends Component {
     };
 
     render() {
-        const { username, avatar_url, lastMessage, id } = this.props.conversation;
+        const { username, avatar_url, lastMessage } = this.props.conversation;
 
         return (
             <div className={style['info']} onClick={this.goToChatRoom}>

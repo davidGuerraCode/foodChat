@@ -1,5 +1,5 @@
 import React from 'react';
-import style from './ChatInput.module.css';
+import style from './InputBox.module.css';
 
 const ChatInput = props => {
     return (

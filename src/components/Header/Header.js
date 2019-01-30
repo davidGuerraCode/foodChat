@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import style from './Header.module.css';
 
 class Header extends Component {
-    componentDidMount() {
+    /* componentDidMount() {
         console.log(this.props);
-    }
+    } */
 
     pushRoute = () => {
         const { history } = this.props.route;
