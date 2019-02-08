@@ -1,0 +1,33 @@
+.info {
+  display: flex;
+  align-items: center;
+  min-height: 80px;
+  padding: 10px;
+  margin: 0 10px;
+  margin-bottom: 5px;
+  border-radius: 15px;
+  box-shadow: 0px 2px 5px var(--gray-shadow-color);
+  cursor: pointer;
+}
+
+.user-info-box {
+  padding: 0 10px;
+}
+
+.username {
+  color: rgb(76, 78, 78);
+  font-size: 1.1rem;
+}
+
+.message {
+  font-size: 0.7rem;
+  margin-top: 5px;
+}
+
+.avatar-img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+}
