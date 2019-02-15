@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Aux from '../../hoc/Aux/Aux';
 import style from './Sigin.module.css';
+import axios from 'axios';
 
 class Sigin extends Component {
   constructor(props) {
@@ -19,7 +20,10 @@ class Sigin extends Component {
 
   handleSubmit = event => {
     const { history } = this.props;
+
     event.preventDefault();
+
+    // axios.post('localhost:5000', {})
 
     history.push('/conversation-list');
   };
@@ -37,8 +41,7 @@ class Sigin extends Component {
             return {
               toValidate: [
                 {
-                  nameField: (prevState.toValidate[0].nameField = true),
-                  passwordField: prevState.toValidate[0].passwordField
+                  nameField: (prevState.toValidate[0].nameField = true)
                 }
               ]
             };
@@ -48,7 +51,7 @@ class Sigin extends Component {
           this.setState(prevState => {
             prevState.toValidate[0].nameFiled = false;
           }, this.validate);
-          currentTarget.style.border = '1.5px solid red';
+          currentTarget.style.border = '2px solid #CD4144';
         }
         break;
       case 'password':
@@ -57,7 +60,6 @@ class Sigin extends Component {
             return {
               toValidate: [
                 {
-                  nameField: prevState.toValidate[0].nameField,
                   passwordField: (prevState.toValidate[0].passwordField = true)
                 }
               ]
@@ -68,7 +70,7 @@ class Sigin extends Component {
           this.setState(prevState => {
             prevState.toValidate[0].passwordField = false;
           }, this.validate);
-          currentTarget.style.border = '1.5px solid red';
+          currentTarget.style.border = '2px solid #CD4144';
         }
         break;
 
@@ -84,6 +86,7 @@ class Sigin extends Component {
     console.log('[current class]', disableClass);
 
     if (isValid) {
+      alert('valid');
       this.setState(
         prevState => {
           return { isNotValid: (prevState.isNotValid = false) };
@@ -109,13 +112,13 @@ class Sigin extends Component {
         <div className={style['container']}>
           <form onSubmit={this.handleSubmit} className={style['form']}>
             <label htmlFor="name">
-              <h1>Sign in</h1>
+              <h1>Sign Up</h1>
             </label>
             <div className={style['input-container']}>
               <input
-                type="text"
-                placeholder="Username"
-                name="username"
+                type="email"
+                placeholder="Email"
+                name="email"
                 onChange={this.handleChangeEvent}
               />
               <input
@@ -126,11 +129,11 @@ class Sigin extends Component {
                 onChange={this.handleChangeEvent}
               />
               <button
-                className={`${style['submit-btn']} ${style['disable-button']}`}
+                className={`${style['submit-btn']}`}
                 type="submit"
                 disabled={this.state.isNotValid}
                 ref={el => (this.submitButton = el)}>
-                Sign in
+                Sign up
               </button>
             </div>
           </form>

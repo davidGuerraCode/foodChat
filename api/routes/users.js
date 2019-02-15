@@ -8,5 +8,6 @@ const usersController = require('../controllers/users');
 router.post('/', usersController.save);
 router.get('/:id', usersController.get);
 router.get('/', usersController.getAll);
+router.delete('/:id', usersController.deleteUser);
 
 module.exports = router;

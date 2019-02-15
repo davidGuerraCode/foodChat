@@ -1,20 +1,3 @@
-:root {
-  --main-bg-color: #ed553b;
-  --secondary-color: #f2b134;
-  --gray-shadow-color: #c2c2c2;
-  /* --gray-shadow-color: #b4b1b1; */
-  --header-height: 65px;
-  /* --main-gradient: linear-gradient(to left, #f6490d, #f74d1e, #f7512b, #f75536, #f75940); */
-  /* --main-gradient: linear-gradient(to left, #1f1e21, #222124, #252427, #29282b, #2c2b2e); */
-  --main-gradient: linear-gradient(to right, #ef473a, #cb2d3e);
-}
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  overflow: hidden;
-}
-
 .chat-container {
   /* background-color: red; */
   height: calc(100vh);
