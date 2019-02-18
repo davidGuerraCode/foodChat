@@ -3,8 +3,8 @@ const Users = require('../models/Users');
 async function save(req, res) {
   try {
     console.log('[Creating user]');
-    let model = new Users(req.body);
-    let result = await model.save();
+    let user = new Users(req.body);
+    let result = await user.save();
 
     if (!result) {
       res.status(400).json({
@@ -14,8 +14,8 @@ async function save(req, res) {
       console.log('[!] User created succesfully');
       res.status(201).json({
         id: result.id,
-				email: result.email,
-				createdAt: result['created_at']
+        email: result.email,
+        createdAt: result['created_at']
       });
     }
   } catch (err) {

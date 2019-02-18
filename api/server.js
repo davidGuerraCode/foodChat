@@ -7,6 +7,7 @@ const cors = require('cors');
 const usersRoutes = require('./routes/users');
 const conversationsRoutes = require('./routes/conversation');
 const messagesRoutes = require('./routes/messages');
+const authRoutes = require('./routes/auth');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -35,6 +36,7 @@ app.use((req, res, next) => {
 app.use('/users', usersRoutes);
 app.use('/conversations', conversationsRoutes);
 app.use('/messages', messagesRoutes);
+app.use('/auth', authRoutes);
 
 // Handle errors
 app.use((req, res, next) => {

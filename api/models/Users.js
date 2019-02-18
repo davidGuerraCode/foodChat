@@ -18,7 +18,7 @@ class Users {
 
   async login() {
     console.log('[User DAO: login]');
-    const client = db.connect();
+    const client = await db.connect();
     let query = 'select * from users where lower(email) = lower($1)';
 
     try {
@@ -30,15 +30,22 @@ class Users {
 
         return null;
       } else {
-        const match = await bcrypt.compare(this.password, result.rows[0].password);
+
+        let match = await bcrypt.compare(
+          this.password.toString(),
+          result.rows[0].password
+        );
 
         if (match) {
           await client.release();
-
+          console.log('[MODEL Result]', result.rows);
           return result.rows[0];
         }
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+      await client.release();
+    }
   }
 
   async save() {
