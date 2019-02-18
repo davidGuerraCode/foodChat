@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Aux from '../../hoc/Aux/Aux';
 import style from './Sigin.module.css';
+import axios from 'axios';
 
 class Sigin extends Component {
   constructor(props) {
@@ -17,11 +18,12 @@ class Sigin extends Component {
     };
   }
 
-  checkIsButtonIsValid() {}
-
   handleSubmit = event => {
     const { history } = this.props;
+
     event.preventDefault();
+
+    // axios.post('localhost:5000', {})
 
     history.push('/conversation-list');
   };
@@ -30,29 +32,46 @@ class Sigin extends Component {
     const inputType = event.target.type;
     const value = event.target.value;
     const currentTarget = event.target;
-    console.log('[!]val', inputType);
 
     switch (inputType) {
       case 'text':
         if (value) {
-          this.setState(prevState => (prevState.toValidate[0].nameFiled = true));
+          this.setState(prevState => {
+            console.log('[PREV_STATE]', prevState);
+            return {
+              toValidate: [
+                {
+                  nameField: (prevState.toValidate[0].nameField = true)
+                }
+              ]
+            };
+          }, this.validate);
           currentTarget.style.border = 'none';
         } else {
-          this.setState(prevState => (prevState.toValidate[0].nameFiled = false));
-          currentTarget.style.border = '1.5px solid red';
+          this.setState(prevState => {
+            prevState.toValidate[0].nameFiled = false;
+          }, this.validate);
+          currentTarget.style.border = '2px solid #CD4144';
         }
-        this.validate(this.state.toValidate);
         break;
       case 'password':
         if (value && value.length > 7) {
-          this.setState(prevState => (prevState.toValidate[0].passwordField = true));
+          this.setState(prevState => {
+            return {
+              toValidate: [
+                {
+                  passwordField: (prevState.toValidate[0].passwordField = true)
+                }
+              ]
+            };
+          }, this.validate);
           currentTarget.style.border = 'none';
         } else {
-          this.setState(prevState => (prevState.toValidate[0].passwordField = false));
-          currentTarget.style.border = '1.5px solid red';
-          console.log('[VAL]', value.length);
+          this.setState(prevState => {
+            prevState.toValidate[0].passwordField = false;
+          }, this.validate);
+          currentTarget.style.border = '2px solid #CD4144';
         }
-        this.validate(this.state.toValidate);
         break;
 
       default:
@@ -60,16 +79,27 @@ class Sigin extends Component {
     }
   };
 
-  validate = arr => {
-    const values = Object.values(arr[0]);
+  validate = () => {
+    const values = Object.values(this.state.toValidate[0]);
     const isValid = values.every(field => field === true);
+    const disableClass = this.submitButton.classList[1] || 'disable-button';
+    console.log('[current class]', disableClass);
 
     if (isValid) {
-      // this.setState(prevState => (prevState.isNotValid = false));
-      this.submitButton.removeAttribute('disabled');
+      alert('valid');
+      this.setState(
+        prevState => {
+          return { isNotValid: (prevState.isNotValid = false) };
+        },
+        () => this.submitButton.classList.remove(disableClass)
+      );
     } else {
-      // this.setState(prevState => (prevState.isNotValid = true));
-      this.submitButton.setAttribute('disabled', true);
+      this.setState(
+        prevState => {
+          return { isNotValid: (prevState.isNotValid = true) };
+        },
+        () => this.submitButton.classList.add(disableClass)
+      );
     }
   };
 
@@ -82,23 +112,28 @@ class Sigin extends Component {
         <div className={style['container']}>
           <form onSubmit={this.handleSubmit} className={style['form']}>
             <label htmlFor="name">
-              <h1>Sign in</h1>
+              <h1>Sign Up</h1>
             </label>
             <div className={style['input-container']}>
-              <input type="text" placeholder="Username" name="username" onInput={this.handleChangeEvent} />
+              <input
+                type="email"
+                placeholder="Email"
+                name="email"
+                onChange={this.handleChangeEvent}
+              />
               <input
                 type="password"
                 name="password"
                 id="password"
                 placeholder="Password"
-                onInput={this.handleChangeEvent}
+                onChange={this.handleChangeEvent}
               />
               <button
-                className={style['submit-btn']}
+                className={`${style['submit-btn']}`}
                 type="submit"
                 disabled={this.state.isNotValid}
                 ref={el => (this.submitButton = el)}>
-                Sign in
+                Sign up
               </button>
             </div>
           </form>
