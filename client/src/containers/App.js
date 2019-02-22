@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import Layout from '../hoc/Layout/Layout';
 import ConversationList from './Conversations/ConversationList';
 import ChatRoom from '../containers/ChatRoom/ChatRoom';
-import Sigin from '../components/Sigin/Sigin';
+import Auth from '../containers/Auth/Auth';
 import Contacts from '../components/Contacts/Contacts';
 
 class App extends Component {
@@ -16,7 +16,7 @@ class App extends Component {
             <Route path="/chat-room/:id" component={ChatRoom} />
             <Route path="/conversation-list" component={ConversationList} />
             <Route path="/contacts" component={Contacts} />
-            <Route exact path="/" component={Sigin} />
+            <Route exact path="/" component={Auth} />
           </Switch>
         </Layout>
       </div>

@@ -40,10 +40,10 @@ async function get(req, res) {
 }
 
 async function getAll(req, res) {
-  console.log('[User controller: getAll()]');
+  console.log('[User controller: getAll()]', req.id);
 
   try {
-    let result = await Users.getAll(req.params.id);
+    let result = await Users.getAll();
 
     res.status(200).json(result);
   } catch (err) {

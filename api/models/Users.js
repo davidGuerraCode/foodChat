@@ -17,7 +17,7 @@ class Users {
   }
 
   async login() {
-    console.log('[User DAO: login]');
+    console.log('[User Model DAO: login]');
     const client = await db.connect();
     let query = 'select * from users where lower(email) = lower($1)';
 
@@ -25,22 +25,23 @@ class Users {
       let result = await client.query(query, [this.email]);
 
       if (!result.rows || result.rows.length === 0) {
-        console.log('[!] User does not exists');
+        console.log('[!] Email and password combination not valid');
         client.release();
 
         return null;
       } else {
-
         let match = await bcrypt.compare(
           this.password.toString(),
           result.rows[0].password
         );
 
-        if (match) {
-          await client.release();
-          console.log('[MODEL Result]', result.rows);
-          return result.rows[0];
+        if (!match) {
+          console.log('[!] Email and password combination not valid');
+          return null;
         }
+
+        await client.release();
+        return result.rows[0];
       }
     } catch (error) {
       console.log(error);

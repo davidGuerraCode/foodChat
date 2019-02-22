@@ -28,12 +28,22 @@ class ConversationList extends Component {
 
   componentDidMount() {
     console.log('Route', this.props);
+    const cookieAccessToken = document.cookie;
+    const token = cookieAccessToken.split('token')[1].split('=')[1];
 
-    axios.get(`http://localhost:5000/users`).then(res => {
-      console.log(`[!] Returning from Api ${JSON.stringify(res.data)}`);
-      const conversations = res.data;
-      this.setState({ conversations });
-    });
+    axios
+      .get(`http://localhost:5000/users`, {
+        headers: { Authorization: 'Bearer ' + token }
+      })
+      .then(res => {
+        try {
+          console.log(`[!] Returning from Api ${JSON.stringify(res.data)}`);
+          const conversations = res.data;
+          this.setState({ conversations });
+        } catch (error) {
+          console.log('[Some went wrong]', error);
+        }
+      });
   }
 
   routeHandler = path => {

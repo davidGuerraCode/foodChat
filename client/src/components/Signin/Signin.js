@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import Aux from '../../hoc/Aux/Aux';
-import style from './Sigin.module.css';
+import style from './Signin.module.css';
 import axios from 'axios';
 
 class Sigin extends Component {
   constructor(props) {
     super(props);
+
+    this.emailRefEl = React.createRef();
+    this.passRefEl = React.createRef();
 
     this.state = {
       isNotValid: true,
@@ -19,13 +22,25 @@ class Sigin extends Component {
   }
 
   handleSubmit = event => {
-    const { history } = this.props;
+    const { history } = this.props.route;
+    const { emailRefEl, passRefEl } = this;
+    const data = {
+      email: emailRefEl.current.value,
+      password: passRefEl.current.value
+    };
 
     event.preventDefault();
-
-    // axios.post('localhost:5000', {})
-
-    history.push('/conversation-list');
+    axios
+      .post('http://localhost:5000/auth/', data)
+      .then(response => {
+        const { token } = response.data;
+        // Save token on cookies
+        document.cookie = 'token=' + token;
+        history.push('/conversation-list');
+      })
+      .catch(error => {
+        console.error(error);
+      });
   };
 
   handleChangeEvent = event => {
@@ -111,15 +126,21 @@ class Sigin extends Component {
         </div>
         <div className={style['container']}>
           <form onSubmit={this.handleSubmit} className={style['form']}>
+            <div className={style['truck-icon-container']}>
+              <i className="fas fa-truck-moving" />
+            </div>
             <label htmlFor="name">
-              <h1>Sign Up</h1>
+              <h1>Sign In</h1>
             </label>
             <div className={style['input-container']}>
               <input
                 type="email"
                 placeholder="Email"
                 name="email"
+                id="name"
+                autoFocus
                 onChange={this.handleChangeEvent}
+                ref={this.emailRefEl}
               />
               <input
                 type="password"
@@ -127,14 +148,20 @@ class Sigin extends Component {
                 id="password"
                 placeholder="Password"
                 onChange={this.handleChangeEvent}
+                ref={this.passRefEl}
               />
-              <button
-                className={`${style['submit-btn']}`}
-                type="submit"
-                disabled={this.state.isNotValid}
-                ref={el => (this.submitButton = el)}>
-                Sign up
-              </button>
+              <div className={style['form-actions']}>
+                <button
+                  className={`${style['submit-btn']}`}
+                  type="submit"
+                  disabled={this.state.isNotValid}
+                  ref={el => (this.submitButton = el)}>
+                  Sign In
+                </button>
+                <button type="button" className={style['sign-up-btn']}>
+                  Sign Up
+                </button>
+              </div>
             </div>
           </form>
         </div>
