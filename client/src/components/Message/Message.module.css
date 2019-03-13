@@ -1,0 +1,18 @@
+.message-container {
+  /* direction: rtl; */
+  /* display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
+  min-height: 800px; */
+}
+
+.message {
+  direction: ltr;
+  background: #ececec;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 0 10px 10px 10px;
+  margin: 10px 0;
+  box-shadow: 0px 2px 5px var(--gray-shadow-color);
+}

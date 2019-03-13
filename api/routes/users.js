@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-// Require usersController
 const usersController = require('../controllers/users');
+const isAuth = require('../middleware/is-auth');
 
-// Define endPoints
 router.post('/', usersController.save);
+router.get('/', isAuth, usersController.getAll);
 router.get('/:id', usersController.get);
-router.get('/', usersController.getAll);
+router.delete('/:id', usersController.deleteUser);
 
 module.exports = router;

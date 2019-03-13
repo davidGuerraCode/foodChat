@@ -1,5 +1,0 @@
-.chat-container {
-    /* background-color: #ececec; */
-    height: calc(90vh - var(--header-height));
-    padding: 10px;
-}

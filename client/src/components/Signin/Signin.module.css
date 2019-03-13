@@ -1,0 +1,115 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+.truck-icon-container {
+  text-align: center;
+  font-size: 4rem;
+  color: white;
+}
+
+.truck-icon-container i {
+  animation: truckAnimation 0.5s cubic-bezier(0.25, 0.07, 1, 1.5) -1s infinite;
+}
+
+.container-bg {
+  position: absolute;
+  width: 100%;
+  height: 55vh;
+  filter: drop-shadow(0px 6px 4px var(--gray-shadow-color));
+}
+
+.bg {
+  height: 55vh;
+  /* background: rgb(255, 76, 21); */
+  background: var(--main-gradient);
+  /* border-bottom-left-radius: 90% 20%;
+  border-bottom-right-radius: 90% 20%; */
+  clip-path: ellipse(100% 62% at 50% 35%);
+}
+
+.form {
+  z-index: 1;
+}
+
+label h1 {
+  color: white;
+  text-align: center;
+}
+
+input {
+  display: block;
+  border-radius: 10px;
+  padding: 10px;
+  outline: none;
+  border: none;
+  margin-top: 10px;
+  width: 250px;
+  box-shadow: 0px 3px 4px var(--gray-shadow-color);
+}
+
+.input-container {
+  text-align: center;
+  padding: 10px;
+}
+
+.form-actions button {
+  cursor: pointer;
+  box-shadow: 0px 3px 4px var(--gray-shadow-color);
+}
+
+.submit-btn {
+  width: 150px;
+  margin-top: 20px;
+  padding: 10px 0px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 1.2rem;
+  transition: all 0.2s ease-out;
+  background: var(--main-gradient);
+  /* text-transform: uppercase; */
+}
+
+.sign-up-btn {
+  display: block;
+  margin: 1rem auto;
+  padding: 8px;
+  color: white;
+  font-size: 0.9rem;
+  background: #2c2b2e;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+}
+
+.submit-btn:hover,
+.submit-btn:active {
+  transform: scale(1.1);
+}
+.sign-up-btn:hover,
+.sign-up-btn:active {
+  opacity: 0.9;
+}
+
+.disable-button {
+  background: var(--gray-shadow-color);
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+@keyframes truckAnimation {
+  0% {
+    transform: translate(0);
+  }
+  50% {
+    transform: translate(0, 2px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
