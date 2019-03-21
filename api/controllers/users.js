@@ -1,8 +1,9 @@
+const cookie = require('cookie');
 const Users = require('../models/Users');
 
 async function save(req, res) {
   try {
-    console.log('[Creating user]');
+    console.log('[Controller Creating user]');
     let user = new Users(req.body);
     let result = await user.save();
 
@@ -40,7 +41,7 @@ async function get(req, res) {
 }
 
 async function getAll(req, res) {
-  console.log('[User controller: getAll()]', req.id);
+  console.log('[User controller: getAll()]', req.cookies);
 
   try {
     let result = await Users.getAll();

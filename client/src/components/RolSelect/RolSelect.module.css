@@ -1,0 +1,32 @@
+.container {
+  background: var(--main-gradient);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container h1 {
+  color: white;
+  font-size: 2.5rem;
+}
+
+.rol-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.rol-container h1 {
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.rol-container img {
+  width: 100px;
+}
+
+.card-container {
+  display: flex;
+}

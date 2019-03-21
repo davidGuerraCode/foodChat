@@ -1,4 +1,5 @@
-const db = require('../db');
+// const db = require('../db');
+const db = require('../db/knex');
 const bcrypt = require('bcryptjs');
 
 class Users {
@@ -18,105 +19,93 @@ class Users {
 
   async login() {
     console.log('[User Model DAO: login]');
-    const client = await db.connect();
-    let query = 'select * from users where lower(email) = lower($1)';
 
     try {
-      let result = await client.query(query, [this.email]);
+      const { email } = this;
+      let result = await db
+        .select('*')
+        .from('users')
+        .where(db.raw('lower("email") = ?', email));
 
-      if (!result.rows || result.rows.length === 0) {
+      if (!result[0] || result.length === 0) {
         console.log('[!] Email and password combination not valid');
-        client.release();
 
         return null;
       } else {
-        let match = await bcrypt.compare(
-          this.password.toString(),
-          result.rows[0].password
-        );
+        let match = await bcrypt.compare(this.password.toString(), result[0].password);
 
         if (!match) {
           console.log('[!] Email and password combination not valid');
           return null;
         }
 
-        await client.release();
-        return result.rows[0];
+        return result[0];
       }
     } catch (error) {
       console.log(error);
-      await client.release();
     }
   }
 
   async save() {
     console.log('[User DAO: save()]');
-
-    const client = await db.connect();
-    let query;
     let result;
-    let values;
 
     try {
       const hash = await bcrypt.hash(this.password, 12);
+      const { email } = this;
       // Check if user not exists already
-      query = 'select email from users where email = $1';
-      result = await client.query(query, [this.email]);
+      result = await db
+        .select('email')
+        .from('users')
+        .where({ email });
 
-      if (!result.rows[0] || result.rows.length === 0) {
-        query = 'insert into users (email, password, created_at';
-        values = ') values ($1, $2, current_timestamp';
+      if (!result[0] || result.length === 0) {
+        result = await db('users')
+          .insert({ email, password: hash, created_at: db.fn.now() })
+          .returning('*');
 
-        query = `${query}${values}) returning *`;
-        result = await client.query(query, [this.email, hash]);
-
-        return result.rows[0];
+        return result[0];
       } else {
         console.log('[User exists already]');
-        await client.release();
         return null;
       }
     } catch (err) {
       console.log(`Error saving data ${err}`);
-      await client.release();
     }
   }
 
   static async get(id) {
     console.log('[!] User DAO: get()');
-    const client = await db.connect();
-
     try {
-      let query = 'select username, avatar_url from users where id = $1';
-      let result = await client.query(query, [id]);
+      let result = await db
+        .select('username', 'avatar_url', 'email', 'created_at')
+        .from('users')
+        .where({ id });
 
-      await client.release();
-      if (!result.rows || result.rows.length === 0) {
+      if (!result || result.length === 0) {
         return null;
       } else {
-        console.log(`User found ${result.rows}`);
-        return result.rows[0];
+        console.log(`User found ${result[0]}`);
+        return result[0];
       }
-    } catch (err) {}
+    } catch (err) {
+      console.log('Error on DB');
+    }
   }
 
   static async getAll() {
     console.log('[!] User DAO: getAll()');
-    const client = await db.connect();
-
     try {
-      let query = 'select * from users';
-      let result = await client.query(query);
-      await client.release();
-      if (!result.rows || result.rows.length === 0) {
+      let result = await db.select('*').from('users');
+      console.log('[Result]', result);
+      if (!result || result.length === 0) {
         console.log('There is no records');
         return null;
       } else {
-        return result.rows;
+        return result;
       }
     } catch (err) {
       console.log(`[!] User DAO error: ${err}`);
-      await client.release();
 
       return null;
     }
@@ -124,18 +113,17 @@ class Users {
 
   static async delete(id) {
     console.log('[!] User DAO: delete');
-    const client = await db.connect();
 
     try {
-      let query = 'delete from users where id = $1 returning id';
-      const result = await client.query(query, [id]);
-
-      await client.release();
-
-      return !(!result.rows || result.rows.length === 0);
+      const result = await db
+        .del('id')
+        .from('users')
+        .where({ id });
+      console.log('[RESULT]', result);
+      // let query = 'delete from users where id = $1 returning id';
+      return !result.rows || result.rows.length === 0;
     } catch (error) {
       console.log('[!] Database error: ', error);
-      await client.release();
 
       return null;
     }

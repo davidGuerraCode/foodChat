@@ -27,7 +27,6 @@ class ConversationList extends Component {
   };
 
   componentDidMount() {
-    console.log('Route', this.props);
     const cookieAccessToken = document.cookie;
     const token = cookieAccessToken.split('token')[1].split('=')[1];
 

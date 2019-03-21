@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Aux from '../../hoc/Aux/Aux';
 import style from './Signin.module.css';
 import axios from 'axios';
+import Card from '../UI/Card/Card';
 
 class Sigin extends Component {
   constructor(props) {
@@ -35,8 +36,8 @@ class Sigin extends Component {
       .then(response => {
         const { token } = response.data;
         // Save token on cookies
-        document.cookie = 'token=' + token;
-        history.push('/conversation-list');
+        /* document.cookie = 'token=' + token;
+        history.push('/conversation-list'); */
       })
       .catch(error => {
         console.error(error);
@@ -127,7 +128,8 @@ class Sigin extends Component {
         <div className={style['container']}>
           <form onSubmit={this.handleSubmit} className={style['form']}>
             <div className={style['truck-icon-container']}>
-              <i className="fas fa-truck-moving" />
+              {/* <i className="fas fa-truck-moving" /> */}
+              <img src="foodTruck2.svg" alt="truck" />
             </div>
             <label htmlFor="name">
               <h1>Sign In</h1>
@@ -157,9 +159,6 @@ class Sigin extends Component {
                   disabled={this.state.isNotValid}
                   ref={el => (this.submitButton = el)}>
                   Sign In
-                </button>
-                <button type="button" className={style['sign-up-btn']}>
-                  Sign Up
                 </button>
               </div>
             </div>

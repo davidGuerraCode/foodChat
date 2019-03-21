@@ -6,6 +6,7 @@ import ConversationList from './Conversations/ConversationList';
 import ChatRoom from '../containers/ChatRoom/ChatRoom';
 import Auth from '../containers/Auth/Auth';
 import Contacts from '../components/Contacts/Contacts';
+import RolSelect from '../components/RolSelect/RolSelect';
 
 class App extends Component {
   render() {
@@ -16,7 +17,8 @@ class App extends Component {
             <Route path="/chat-room/:id" component={ChatRoom} />
             <Route path="/conversation-list" component={ConversationList} />
             <Route path="/contacts" component={Contacts} />
-            <Route exact path="/" component={Auth} />
+            <Route path="/auth" component={Auth} />
+            <Route exact path="/" component={RolSelect} />
           </Switch>
         </Layout>
       </div>

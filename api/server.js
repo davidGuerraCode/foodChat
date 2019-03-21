@@ -3,6 +3,7 @@ const bodyParse = require('body-parser');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 const usersRoutes = require('./routes/users');
 const conversationsRoutes = require('./routes/conversation');
@@ -14,6 +15,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use(bodyParse.json());
 app.use(bodyParse.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(helmet());
 app.use(morgan('dev'));
 app.use(cors());

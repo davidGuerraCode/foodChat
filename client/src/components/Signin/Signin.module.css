@@ -11,8 +11,9 @@
   color: white;
 }
 
-.truck-icon-container i {
+.truck-icon-container img {
   animation: truckAnimation 0.5s cubic-bezier(0.25, 0.07, 1, 1.5) -1s infinite;
+  width: 135px;
 }
 
 .container-bg {
