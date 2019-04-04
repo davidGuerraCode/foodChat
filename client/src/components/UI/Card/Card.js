@@ -1,25 +1,17 @@
-import React from 'react';
-import Aux from '../../../hoc/Aux/Aux';
+import React, { useEffect, useState } from 'react';
 import style from './Card.module.css';
 
 const card = props => {
-  const { label, route, path, children } = props;
+  const { children, grow } = props;
+  const [classes, setClasses] = useState([style.Card]);
 
-  function goTo() {
-    // route.push(path);
-    route.push('/auth');
-  }
+  useEffect(() => {
+    if (grow) {
+      setClasses([...classes, style.Grow]);
+    }
+  }, [grow]);
 
-  return (
-    <Aux>
-      <div className={style['card-content']} onClick={goTo}>
-        <div className={style['card']}>
-          <span className={style['icon-container']}>{children}</span>
-        </div>
-        <p>{label}</p>
-      </div>
-    </Aux>
-  );
+  return <div className={classes.join(' ')}>{children}</div>;
 };
 
 export default card;
