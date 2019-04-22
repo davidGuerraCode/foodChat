@@ -2,43 +2,73 @@ import React, { useState } from 'react';
 
 import Aux from '../../hoc/Aux/Aux';
 import Card from '../UI/Card/Card';
+import Input from '../UI/Form/Input/Input';
 import style from '../Signup/Signup.module.css';
 
 const signup = props => {
-  const [input, setInput] = useState([
-    {
-      placeholder: 'Fullname',
-      type: 'text',
-      name: 'fullname',
-      iconClass: 'fas fa-user'
+  const [inputFactory, setInputFactory] = useState({
+    fullname: {
+      elementType: 'input',
+      elementConfig: {
+        placeholder: 'Fullname',
+        type: 'text',
+        name: 'fullname'
+      },
+      icon: 'fas fa-user',
+      value: ''
     },
-    {
-      placeholder: 'Email',
-      type: 'email',
-      name: 'email',
-      iconClass: 'fas fa-envelope'
+    email: {
+      elementType: 'input',
+      elementConfig: {
+        placeholder: 'Email',
+        type: 'email',
+        name: 'email'
+      },
+      icon: 'fas fa-envelope',
+      value: ''
     },
-    {
-      placeholder: 'Password',
-      type: 'password',
-      name: 'password',
-      iconClass: 'fas fa-lock'
+    password: {
+      elementType: 'input',
+      elementConfig: {
+        placeholder: 'Password',
+        type: 'password',
+        name: 'password'
+      },
+      icon: 'fas fa-lock',
+      value: ''
     },
-    {
-      placeholder: 'Confirm password',
-      type: 'password',
-      name: 'confirm password',
-      iconClass: 'fas fa-lock'
+    confirmPassword: {
+      elementType: 'input',
+      elementConfig: {
+        placeholder: 'Confirm password',
+        type: 'password',
+        name: 'confirm password'
+      },
+      icon: 'fas fa-lock',
+      value: ''
     }
-  ]);
+  });
 
-  const inputs = input.map((el, index) => {
+  const formElementsArray = [];
+
+  for (const key in inputFactory) {
+    if (inputFactory.hasOwnProperty(key)) {
+      formElementsArray.push({
+        id: key,
+        config: inputFactory[key]
+      });
+    }
+  }
+
+  const inputs = formElementsArray.map(el => {
     return (
-      <div key={index} className={style.InputContainer}>
-        <input type={el.type} name={el.name} placeholder={el.placeholder} />
-        <span className={style.IconContainer}>
-          <i className={el.iconClass} />
-        </span>
+      <div key={el.id}>
+        <Input
+          elementType={el.config.elementType}
+          elementConfig={el.config.elementConfig}
+          value={el.config.value}
+          icon={el.config.icon}
+        />
       </div>
     );
   });

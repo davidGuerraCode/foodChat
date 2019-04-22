@@ -31,15 +31,6 @@
   padding: 10px 20px;
 }
 
-.FormContainer input {
-  margin: 10px 0;
-  min-width: 200px;
-  outline: none;
-  border: none;
-  padding: 5px 0;
-  border-bottom: thin solid rgba(0, 0, 0, 0.2);
-}
-
 .FormContainer button {
   background: var(--main-gradient);
   border: none;
@@ -56,15 +47,6 @@
 
 .FormContainer button:hover {
   transform: scale(1.05);
-}
-
-.IconContainer {
-  position: relative;
-  right: 15px;
-}
-
-.IconContainer i {
-  color: rgba(0, 0, 0, 0.3);
 }
 
 .CardTitle {
