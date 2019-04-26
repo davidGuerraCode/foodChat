@@ -3,19 +3,19 @@ import React from 'react';
 import style from './Input.module.css';
 
 const input = props => {
-  const { elementType, elementConfig, value } = props;
+  const { elementType, elementConfig, value, changed } = props;
   let inputElement = null;
 
   switch (elementType) {
     case 'input':
-      inputElement = <input {...elementConfig} value={value} />;
+      inputElement = <input {...elementConfig} value={value} onChange={changed} />;
       break;
     case 'textarea':
-      inputElement = <textarea {...elementConfig} value={value} />;
+      inputElement = <textarea {...elementConfig} value={value} onChange={changed} />;
       break;
 
     default:
-      inputElement = <input {...elementConfig} value={value} />;
+      inputElement = <input {...elementConfig} value={value} onChange={changed} />;
       break;
   }
 

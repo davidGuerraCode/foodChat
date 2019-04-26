@@ -1,18 +1,30 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 
+import { UPDATE_FORM_FIELD } from '../../actions/formFieldActions';
+import { formFieldReducer } from '../../reducers/';
 import Aux from '../../hoc/Aux/Aux';
 import Card from '../UI/Card/Card';
 import Input from '../UI/Form/Input/Input';
 import style from '../Signup/Signup.module.css';
 
 const signup = props => {
-  const [inputFactory, setInputFactory] = useState({
-    fullname: {
+  const initialState = {
+    firstname: {
       elementType: 'input',
       elementConfig: {
-        placeholder: 'Fullname',
+        placeholder: 'Firstname',
         type: 'text',
-        name: 'fullname'
+        name: 'firstname'
+      },
+      icon: 'fas fa-user',
+      value: ''
+    },
+    lastname: {
+      elementType: 'input',
+      elementConfig: {
+        placeholder: 'Lastname',
+        type: 'text',
+        name: 'lastname'
       },
       icon: 'fas fa-user',
       value: ''
@@ -47,7 +59,9 @@ const signup = props => {
       icon: 'fas fa-lock',
       value: ''
     }
-  });
+  };
+
+  const [inputFactory, dispatch] = useReducer(formFieldReducer, initialState);
 
   const formElementsArray = [];
 
@@ -68,6 +82,7 @@ const signup = props => {
           elementConfig={el.config.elementConfig}
           value={el.config.value}
           icon={el.config.icon}
+          changed={dispatch({ type: UPDATE_FORM_FIELD }, el.id)}
         />
       </div>
     );
